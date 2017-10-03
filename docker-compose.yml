@@ -1,0 +1,51 @@
+version: "3"
+
+services:
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:5.6.2
+    container_name: filebeat5.6
+    volumes:
+      - ./config/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - ./logs/:/var/log/example/
+    networks:
+      - belk_network
+    depends_on:
+      - logstash
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:5.6.2
+    container_name: logstash5.6
+    volumes:
+      - ./config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./config/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    networks:
+      - belk_network
+    depends_on:
+      - elasticsearch
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.2
+    container_name: elasticsearch5.6
+    volumes:
+      - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    networks:
+      - belk_network
+    ports:
+      - "9200:9200"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:5.6.2
+    container_name: kibana5.6
+    volumes:
+      - ./config/kibana.yml:/usr/share/kibana/config/kibana.yml
+    networks:
+      - belk_network
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+networks:
+    belk_network:
+        driver: bridge
