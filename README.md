@@ -78,7 +78,7 @@ docker exec -it container_name bash
 
 - Config for Elasticsearch, Logstash, Filebeat and Kibana: ../config/
 - Logs to be read by Filebeat: ../logs/
-- docker-compose.yml: the definition of ELK architecture
+- docker-compose.yml: the definition of BELK architecture
 
 ## Disable X-Pack
 
