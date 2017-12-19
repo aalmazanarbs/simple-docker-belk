@@ -1,7 +1,7 @@
 ---
 
 filebeat.prospectors:
-- input_type: log
+- type: log
   paths:
     - /var/log/example/*.log
   encoding: plain

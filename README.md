@@ -1,5 +1,7 @@
 # BELK stack example with Docker
 
+BELK stack in docker to read logs from log directory with Filebeat, parse in Logstash, store in Elasticsearch and display in Kibana. Logs are from 12/Dec/2017 to 18/Dec/2017 (take a look on that to search in Kibana).
+
 The containers are shipped with X-Pack installed.
 
 In some cases, it is need to set up the vm.max_map_count=262144 for Elasticsearch.
@@ -16,22 +18,22 @@ docker-compose up -d
 
 or stop and start environment
 ```shell
-docker stop elasticsearch5.6 logstash5.6 kibana5.6 filebeat5.6
+docker stop elasticsearch6.1.0 logstash6.1.0 kibana6.1.0 filebeat6.1.0
 docker-compose up -d
 ```
 
 or delete and restart environment
 
 ```shell
-docker stop elasticsearch5.6 logstash5.6 kibana5.6 filebeat5.6
-docker rm elasticsearch5.6 logstash5.6 kibana5.6 filebeat5.6
+docker stop elasticsearch6.1.0 logstash6.1.0 kibana6.1.0 filebeat6.1.0
+docker rm elasticsearch6.1.0 logstash6.1.0 kibana6.1.0 filebeat6.1.0
 docker-compose up -d
 ```
 
 ## Stop environment
 
 ```shell
-docker stop elasticsearch5.6 logstash5.6 kibana5.6 filebeat5.6
+docker stop elasticsearch6.1.0 logstash6.1.0 kibana6.1.0 filebeat6.1.0
 ```
 
 ## Reset a service

@@ -1,21 +1,27 @@
-version: "3"
+---
+
+version: '3.4'
 
 services:
 
-  filebeat:
-    image: docker.elastic.co/beats/filebeat:5.6.2
-    container_name: filebeat5.6
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+    container_name: elasticsearch${ELASTIC_VERSION}
+    environment:
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
     volumes:
-      - ./config/filebeat.yml:/usr/share/filebeat/filebeat.yml
-      - ./logs/:/var/log/example/
+      - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     networks:
       - belk_network
-    depends_on:
-      - logstash
+    ports:
+      - "9200:9200"
 
   logstash:
-    image: docker.elastic.co/logstash/logstash:5.6.2
-    container_name: logstash5.6
+    image: docker.elastic.co/logstash/logstash:${ELASTIC_VERSION}
+    container_name: logstash${ELASTIC_VERSION}
+    environment:
+      - ELASTIC_USER=${ELASTIC_USER}
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
     volumes:
       - ./config/logstash.yml:/usr/share/logstash/config/logstash.yml
       - ./config/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
@@ -24,19 +30,12 @@ services:
     depends_on:
       - elasticsearch
 
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.2
-    container_name: elasticsearch5.6
-    volumes:
-      - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-    networks:
-      - belk_network
-    ports:
-      - "9200:9200"
-
   kibana:
-    image: docker.elastic.co/kibana/kibana:5.6.2
-    container_name: kibana5.6
+    image: docker.elastic.co/kibana/kibana:${ELASTIC_VERSION}
+    container_name: kibana${ELASTIC_VERSION}
+    environment:
+      - ELASTICSEARCH_USERNAME=${ELASTIC_USER}
+      - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}
     volumes:
       - ./config/kibana.yml:/usr/share/kibana/config/kibana.yml
     networks:
@@ -45,6 +44,18 @@ services:
       - "5601:5601"
     depends_on:
       - elasticsearch
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:${ELASTIC_VERSION}
+    container_name: filebeat${ELASTIC_VERSION}
+    volumes:
+      - ./config/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - ./logs/:/var/log/example/
+    networks:
+      - belk_network
+    depends_on:
+      - logstash
+      - kibana
 
 networks:
     belk_network:
