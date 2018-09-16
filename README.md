@@ -6,8 +6,6 @@ In some cases, it is need to set up the vm.max_map_count=262144 for Elasticsearc
 
 The example data are from the month of September 2018. The logs will be read from the ./logs/ directory.
 
-If you need Filebeta dashboards in Kibana switch to [filebeat_dashboards branch](https://github.com/aalmazanarbs/simple-docker-belk/tree/filebeat_dashboards)
-
 Tested on docker 18.06.1-ce.
 
 ## Build and start environment
