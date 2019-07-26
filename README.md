@@ -1,12 +1,12 @@
-# BELK stack example with Docker
+# BELK stack 7.2.0 example with Docker
 
-BELK stack in docker to read logs from log directory with Filebeat, parse in Logstash, store in Elasticsearch and display in Kibana. Logs are from 10/Sep/2018 to 16/Sep/2018 (take a look on that to search in Kibana).
+BELK stack in docker to read logs from log directory with Filebeat, parse in Logstash, store in Elasticsearch and display in Kibana. Logs are from 23/Jul/2019 to 29/Jul/2019 (take a look on that to search in Kibana).
 
 In some cases, it is need to set up the vm.max_map_count=262144 for Elasticsearch.
 
-The example data are from the month of September 2018. The logs will be read from the ./logs/ directory.
+The example data are from the month of July 2019. The logs will be read from the ./logs/ directory.
 
-Tested on docker 18.06.1-ce.
+Tested on docker 2.0.0.3
 
 ## Build and start environment
 

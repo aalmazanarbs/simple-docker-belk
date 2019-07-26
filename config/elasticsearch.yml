@@ -7,5 +7,5 @@ node.master: true
 node.data: true
 node.ingest: true
 
-discovery.zen.minimum_master_nodes: 1
-discovery.zen.ping.unicast.hosts: ["elasticsearch"]
+discovery.type: single-node
+cluster.routing.allocation.disk.threshold_enabled: false
